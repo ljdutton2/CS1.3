@@ -50,12 +50,12 @@ def encode(number, base):
     number = 0
     if number == 0: 
         return '0'
-    while (base**n) <= number:
+    while (base**number) <= number:
         number += 1
     while number > 0:
-        div = int(number/(base**(n-1)))
+        div = int(number/(base**(number-1)))
         encoded += strings[div]
-        number -= div * base**(n-1)
+        number -= div * base**(number-1)
         number -= 1
 
     return encoded
