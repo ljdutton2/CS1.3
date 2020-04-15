@@ -14,13 +14,16 @@ def is_palindrome(text):
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
     #return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text)
+    return is_palindrome_iterative(text)
 
 
 def is_palindrome_iterative(text):
     # implement the is_palindrome function iteratively here
     left_index = 0
+    text = filter(str.isalnum,text)
+    text = "".join(text)
     right_index = len(text)-1
+    text = text.lower()
     while left_index < right_index:
         if text[left_index] != text[right_index]:
             return False
@@ -33,13 +36,24 @@ def is_palindrome_iterative(text):
 
 def is_palindrome_recursive(text, left=None, right=None):
     # implement the is_palindrome function recursively here
-    left = 0
-    right = len(text)-1
-    if text[left] != text[right]:
-        return False
-    if left == right or left > right:
+    
+    
+    if left is None:
+        left = 0
+        text = filter(str.isalnum,text)
+        text = "".join(text)
+        right = len(text)-1
+    
+    text = text.lower()
+    if left>right:
         return True
-    return is_palindrome_recursive(text, left+1, right-1)
+    elif text[left] != text[right]:
+        return False    
+    #if text[left] == text[right]:
+    else:
+        return is_palindrome_recursive(text, left+1, right-1)
+        
+    
 
     # once implemented, change is_palindrome to call is_palindrome_recursive
     # to verify that your iterative implementation passes all tests
@@ -61,6 +75,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    text = 'boob'
+    print(is_palindrome_recursive(text,0,len(text)-1))
     
     
     
