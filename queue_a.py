@@ -112,9 +112,9 @@ class ArrayQueue(object):
         if self.is_empty():
             raise ValueError("item not found")
         else:
-            last = self.list[0]
+            front = self.list[0]
             self.list.pop(0)
-            return last
+            return front
             
 
 

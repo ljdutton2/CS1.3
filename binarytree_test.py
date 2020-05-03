@@ -1,6 +1,7 @@
 #!python
 
 from binarytree import BinarySearchTree, BinaryTreeNode
+from queue_a import ArrayQueue
 import unittest
 
 
