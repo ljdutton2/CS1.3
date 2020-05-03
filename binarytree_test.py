@@ -220,7 +220,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         # assert ...
         # assert ...
 
-    def test_items_in_order_with_3_strings(self):
+    def test_items_pre_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order
         items = ['B', 'A', 'C']
         tree = BinarySearchTree(items)

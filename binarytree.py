@@ -273,7 +273,7 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree in-order from root, appending each node's item
-            self._traverse_in_order_recursive(self.root, items.append)
+            self._traverse_in_order_iterative(self.root, items.append)
         # Return in-order list of all items in tree
         return items
 
@@ -297,22 +297,31 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse in-order without using recursion (stretch challenge)
-        current = node
         stack = []
-        while True:
-            if current is not None:
-                stack.append(current)
-            elif stack:
-                current = stack.pop()
-                visit(current.data)
-                current = current.right
+       
+        while len(stack)!= 0 or node !=None:
+            
+            if node is not None:
+                stack.append(node)
+                node = node.left
+   
+            else:
+                node = stack.pop()
+                visit(node.data)
+                node = node.right
+            
+
+
+            
+
+           
 
     def items_pre_order(self):
         """Return a pre-order list of all items in this binary search tree."""
         items = []
         if not self.is_empty():
             # Traverse tree pre-order from root, appending each node's item
-            self._traverse_pre_order_recursive(self.root, items.append)
+            self._traverse_pre_order_iterative(self.root, items.append)
         # Return pre-order list of all items in tree
         return items
 
@@ -342,15 +351,13 @@ class BinarySearchTree(object):
         current = node
         stack.append(current)
         while len(stack) > 0:
-            while current is not None:
-                visit(current.data)
-                stack.append(current)
-                if node.right is not None:
-                    stack.append(node.right)
-                current = current.left
-            if len(stack) > 0:
-                current = stack[-1]
-                stack.pop()
+            current = stack.pop()
+            visit(current.data)
+            if current.right is not None:
+                stack.append(current.right)
+            if current.left is not None:
+                stack.append(current.left)
+                
 
 
 
@@ -362,7 +369,7 @@ class BinarySearchTree(object):
         items = []
         if not self.is_empty():
             # Traverse tree post-order from root, appending each node's item
-            self._traverse_post_order_recursive(self.root, items.append)
+            self._traverse_post_order_iterative(self.root, items.append)
         # Return post-order list of all items in tree
         return items
 
@@ -389,20 +396,24 @@ class BinarySearchTree(object):
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse post-order without using recursion (stretch challenge)
-        stack = []
-        hold = []
-        while node is not None:
-            if node.right is not None:
-                stack.append(node.right)
-            stack.append(node)
-            node = node.left
-        node = stack.pop()
-        if node.right is not None:
-            stack.pop()
-            stack.append(node)
-            node = node.right
-        else:
-            hold.append(node.data)
+        
+        s1 = []
+        s2 = []
+        #push node to first stack
+        s1.append(node)
+        #run when first stack is not empty
+        while s1: 
+            #move from first stack to the second
+            node = s1.pop()
+            s2.append(node)
+            #push children of that node to first stack
+            if node.left:
+                s1.append(node.left)
+            if node.right:
+                s1.append(node.right)
+        while s2:
+            node = s2.pop()
+            visit(node.data)
 
 
 
